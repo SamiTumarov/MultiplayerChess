@@ -1,0 +1,161 @@
+﻿<UserControl x:Class="ChessWPF.GameControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:ChessWPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="920" d:DesignWidth="1200">
+
+    <UserControl.Resources>
+        <local:PathToImageConverter x:Key="StringToImage" />
+    </UserControl.Resources>
+
+    <Grid Width="1200" Height="920">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="BlanchedAlmond" Offset="0.7" />
+                <GradientStop Color="Wheat" Offset="0.7" />
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Label Visibility="Hidden" Name="PlayerNameTitle" Content="Playing Against: " FontSize="20" FontWeight="Bold" Width="180" Height="50" Margin="289,30,731,920"
+               HorizontalContentAlignment="Right"/>
+        <Label Visibility="Hidden" Name="PlayerName" Content="Username" FontSize="20" FontWeight="Bold" Width="180" Height="50" Margin="469,30,551,920"/>
+
+        <Canvas Name="BoardCanvas" Width="760" Height="760"
+                HorizontalAlignment="Left" Margin="50,80,0,80">
+            <Canvas Name="TemporaryWait">
+                <Label Content="Invite Your Friends To - " FontSize="25" Canvas.Left="200" Canvas.Top="240" FontWeight="Bold"/>
+                <Label Content="3654" Name="RoomTag" FontSize="25" Canvas.Left="493" Canvas.Top="240" FontWeight="Bold"/>
+                <Label Content="Waiting For Players..." FontSize="25" Canvas.Left="272" Canvas.Top="305" FontWeight="Bold"/>
+            </Canvas>
+
+            <!--
+            <Rectangle Fill="Black" Width="95" Height="95"/>
+            <Rectangle Fill="White" Width="95" Height="95" Canvas.Top="95"/>
+            <Rectangle Fill="Black" Width="95" Height="95" Canvas.Top="190"/>
+            <Rectangle Fill="White" Width="95" Height="95" Canvas.Top="285"/>
+            <Rectangle Fill="Black" Width="95" Height="95" Canvas.Top="380"/>
+            <Rectangle Fill="White" Width="95" Height="95" Canvas.Top="475"/>
+            <Rectangle Fill="Black" Width="95" Height="95" Canvas.Top="570"/>
+            <Rectangle Fill="White" Width="95" Height="95" Canvas.Top="665" Canvas.Left="190"/>
+            <Rectangle Fill="Black" Width="95" Height="95" Canvas.Top="665" Canvas.Left="95"/>
+            <Rectangle Fill="White" Width="95" Height="95" Canvas.Top="665"/>
+            <Rectangle Fill="Black" Width="95" Height="95" Canvas.Top="665" Canvas.Left="285"/>
+            <Rectangle Fill="White" Width="95" Height="95" Canvas.Top="665" Canvas.Left="380"/>
+            <Rectangle Fill="Black" Width="95" Height="95" Canvas.Top="665" Canvas.Left="475"/>
+            <Rectangle Fill="White" Width="95" Height="95" Canvas.Top="665" Canvas.Left="570"/>
+            <Rectangle Fill="Black" Width="95" Height="95" Canvas.Top="665" Canvas.Left="665"/> -->
+        </Canvas>
+
+        <!-- Letters near board -->
+        <Label Visibility="Collapsed" Name="FrontWhiteLetters" Content="     a            b            c            d            e           f            g            h" 
+               FontSize="25" FontWeight="Bold" Width="760" Margin="50,840,390,36"/>
+        <TextBlock Visibility="Collapsed" Name="SideWhiteLetters" FontWeight="Bold" Width="25" FontSize="25" Margin="25,68,1150,87" 
+                   Text="&#x0d;&#x0d;&#x0d;&#x0d;&#x0d;&#x0d;&#x0a;8&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;
+                   &#x0d;&#x0d;&#x0d;&#x0d;&#x0d;&#x0d;7&#x0a;&#x0a;&#x0a;&#x0a;
+                   &#x0a;&#x0a;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;6&#x0a;&#x0a;&#x0a;&#x0a;&#x0a;&#x0a;
+                   &#x0d;&#x0a;
+                   &#x0d;&#x0a;&#x0d;&#x0a;5&#x0a;&#x0a;&#x0a;&#x0a;
+                   &#x0a;&#x0a;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;4&#x0a;&#x0a;&#x0a;&#x0a;
+                   &#x0a;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;
+                   3&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0a;&#x0a;&#x0a;&#x0a;&#x0a;&#x0a;&#x0a;2&#x0a; &#x0d;&#x0a;
+                   &#x0d;&#x0a;&#x0d;&#x0a;&#x0a;&#x0a;&#x0a;&#x0a;&#x0a;&#x0a;1"
+                   TextWrapping="Wrap" LineHeight="10" LineStackingStrategy="BlockLineHeight"/>
+
+        <Label Visibility="Collapsed" Name="FrontBlackLetters" Content="     h            g           f            e            d            c            b            a" 
+               FontSize="25" FontWeight="Bold" Width="760" Margin="50,840,390,36"/>
+        <TextBlock Visibility="Collapsed" Name="SideBlackLetters" FontWeight="Bold" Width="25" FontSize="25" Margin="25,68,1150,87" 
+                   Text="&#x0d;&#x0d;&#x0d;&#x0d;&#x0d;&#x0d;&#x0a;1&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;
+                   &#x0d;&#x0d;&#x0d;&#x0d;&#x0d;&#x0d;2&#x0a;&#x0a;&#x0a;&#x0a;
+                   &#x0a;&#x0a;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;3&#x0a;&#x0a;&#x0a;&#x0a;&#x0a;&#x0a;
+                   &#x0d;&#x0a;
+                   &#x0d;&#x0a;&#x0d;&#x0a;4&#x0a;&#x0a;&#x0a;&#x0a;
+                   &#x0a;&#x0a;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;5&#x0a;&#x0a;&#x0a;&#x0a;
+                   &#x0a;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;
+                   6&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0a;&#x0a;&#x0a;&#x0a;&#x0a;&#x0a;&#x0a;7&#x0a; &#x0d;&#x0a;
+                   &#x0d;&#x0a;&#x0d;&#x0a;&#x0a;&#x0a;&#x0a;&#x0a;&#x0a;&#x0a;8" LineHeight="10" LineStackingStrategy="BlockLineHeight"
+                   TextWrapping="Wrap"/>
+
+        <!-- Letters near board ending -->
+
+        <Label Content="Game" FontSize="23" Height="50" Margin="840,279,60,591" HorizontalContentAlignment="Center" Background="Gray"
+               FontWeight="Bold"/>
+
+        <ListBox Name="MovesPanel" Background="White" Margin="840,329,60,317" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label HorizontalContentAlignment="Center" FontSize="20" Content="{Binding}" Width="125" FontWeight="DemiBold"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Name="ExitBtn" Content="Exit"
+                FontSize="20" FontWeight="DemiBold" Height="50" Margin="990,603,60,267" Click="BackToLobby_Click"/>
+        <Button Name="ResignBtn" IsEnabled="False"
+                Content="Resign" FontSize="20" FontWeight="DemiBold" Height="50" Margin="840,603,210,267" Click="ExitBtn_Click"/>
+
+        <Border BorderBrush="Black" BorderThickness="4" Margin="840,704,56,96">
+            <Canvas Background="Beige" Name="MyCanvas">
+                <Label Name="MeName" Content="Waiting For Player..." FontSize="22" FontWeight="Bold" Margin="0" HorizontalContentAlignment="Center" Width="279"/>
+                <Label Visibility="Hidden" HorizontalContentAlignment="Center" Name="MeTime" Content="15:00 Minutes" FontSize="23" FontWeight="DemiBold" Canvas.Top="44" Width="279"/>
+            </Canvas>
+        </Border>
+
+        <Border BorderBrush="Black" BorderThickness="4" Margin="836,105,60,695">
+            <Canvas Background="Beige" Name="OpCanvas">
+                <Label Name="OpName" Content="Waiting For Opponent..." FontSize="22" FontWeight="Bold" Margin="0" HorizontalContentAlignment="Center" Width="279"/>
+                <Label Visibility="Hidden" Name="OpTime" Content="15:00 Minutes" HorizontalContentAlignment="Center" FontSize="23" FontWeight="DemiBold" Canvas.Top="44" Width="279"/>
+            </Canvas>
+        </Border>
+
+
+        <Canvas IsEnabled="False" Visibility="Collapsed" Name="Afterwards" Width="500" Height="350" Margin="189,213,511,357">
+            <Canvas.Background>
+                <SolidColorBrush Color="Beige" Opacity="0.99"/>
+            </Canvas.Background>
+            <Border BorderThickness="3" BorderBrush="Black" Width="500" Height="350" />
+            <Label Name="Statement" Content="Statement" FontSize="27" HorizontalAlignment="Center" Width="311"
+                           Canvas.Top="151" Height="46" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+            <Button Name="BackToLobby" Content="Go Back To Lobby" FontSize="23.5" FontWeight="DemiBold" Width="480" Height="40"
+             Canvas.Top="300" Click="BackToLobby_Click" Canvas.Left="10" Background="Azure" BorderThickness="3"/>
+
+            <Image Name="PremadeWinnerImg" Visibility="Collapsed" Source="{Binding Path=my_color_str, Converter={StaticResource StringToImage}, ConverterParameter='Images/{0}_win.png' }" Canvas.Left="316" Canvas.Top="90" Height="170" Width="170"/>
+            <Image Name="PremadeLoserImage" Visibility="Collapsed" Source="{Binding Path=my_color_str, Converter={StaticResource StringToImage}, ConverterParameter='Images/{0}_lose.png' }" Canvas.Left="316" Canvas.Top="90" Height="170" Width="170"/>
+            <Image Name="PremadeDrawImage" Visibility="Collapsed" Source="{Binding Path=my_color_str, Converter={StaticResource StringToImage}, ConverterParameter='Images/{0}_draw.png' }" Canvas.Left="316" Canvas.Top="90" Height="170" Width="170"/>
+
+        </Canvas>
+
+        <Canvas Name="PawnPieceSelection" Visibility="Collapsed" Width="430" Height="230" Background="White" Margin="243,279,551,435" >
+            <Canvas Panel.ZIndex="1" Width="430" Height="230">
+                <Border BorderThickness="7" BorderBrush="Black" Width="430" Height="230"/>
+                <Button Tag="Q" Background="White" Opacity="0.9" Width="100" Height="100" Canvas.Bottom="15" Canvas.Left="15"
+                        BorderThickness="0" Click="PieceSelection"/>
+                <Button Tag="B" Background="White" Opacity="0.9" Width="100" Height="100" Canvas.Bottom="15" Canvas.Left="115"
+                        BorderThickness="0" Click="PieceSelection"/>
+                <Button Tag="R" Background="White" Opacity="0.9" Width="100" Height="100" Canvas.Bottom="15" Canvas.Left="215"
+                        BorderThickness="0" Click="PieceSelection"/>
+                <Button Tag="H" Background="White" Opacity="0.9" Width="100" Height="100" Canvas.Bottom="15" Canvas.Left="315" 
+                        BorderThickness="0" Click="PieceSelection"/>
+                <Label Content="Promote Pawn To:" FontSize="23" FontWeight="DemiBold" Canvas.Left="103" Canvas.Top="31" Width="205"/>
+
+                <Image Source="{Binding Path=my_color_str, Converter={StaticResource StringToImage}, ConverterParameter='Images/{0}_queen.png' }"
+                       Canvas.Left="15" Canvas.Top="115" IsHitTestVisible="False"/>
+                <Image Source="{Binding Path=my_color_str, Converter={StaticResource StringToImage}, ConverterParameter='Images/{0}_bishop.png'}"
+                       Canvas.Left="115" Canvas.Top="115" IsHitTestVisible="False"/>
+                <Image Source="{Binding Path=my_color_str, Converter={StaticResource StringToImage}, ConverterParameter='Images/{0}_rook.png'}"
+                       Canvas.Left="220" Canvas.Top="115" IsHitTestVisible="False"/>
+                <Image Source="{Binding Path=my_color_str, Converter={StaticResource StringToImage}, ConverterParameter='Images/{0}_knight.png'}"
+                       Canvas.Left="310" Canvas.Top="115" IsHitTestVisible="False"/>
+            </Canvas>
+        </Canvas>
+
+    </Grid>
+</UserControl>

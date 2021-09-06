@@ -1,0 +1,126 @@
+﻿<UserControl x:Class="ChessWPF.LoginControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChessWPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="920" d:DesignWidth="1200">
+    <Grid Width="1200" Height="920" Background="BlanchedAlmond">
+        <!--
+        <Label Content="Chess Game - 2021" FontSize="36" HorizontalAlignment="Center" Height="70" VerticalAlignment="Top" FontWeight="Bold"
+               Margin="0, 20, 0, 0"/> -->
+
+        <Border Width="80" Height="80" Margin="34,35,1066,785" Background="#FFCDA06A" CornerRadius="15" MouseEnter="Security_Image_MouseEnter" MouseLeave="Security_Image_MouseLeave">
+            <Image Name="Security_Image" Source="pack://application:,,,/Images/Secure.png" Width="80" Height="80" />
+        </Border>
+
+        <Border Name="SecurityAlert" Width="500" Height="150"  CornerRadius="15" Background="#FFCFAA5B" Opacity="0.99" Margin="80,81,620,689"
+                Visibility="Collapsed" IsHitTestVisible="False" BorderBrush="Black" BorderThickness="3">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
+                <Label Content="Your Passwords Are Important To Us!" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontWeight="Bold" FontSize="20"/>
+                <TextBlock Grid.Row="1" FontSize="17" FontWeight="DemiBold" TextWrapping="Wrap" HorizontalAlignment="Center" LineHeight="30"
+                           Margin="15, 0, 15, 0">
+                    <Run Text="We use an AES-256 Key, exchanged with RSA, to hide your information."/>
+                    <Run Text="We also use SHA-256, to store your passwords securly!"/>
+                </TextBlock>
+            </Grid>
+        </Border>
+
+        <!-- Login Form -->
+        <Canvas Name="LoginForm" Width="800" Height="420" Background="BurlyWood" Visibility="Visible">
+            <Border Width="800" Height="420" Background="#FFD1A46C">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="50"></DropShadowEffect>
+                </Border.Effect>
+            </Border>
+            <Label Visibility="Visible" Content="Login With An Account" FontSize="28" FontWeight="Bold" Canvas.Top="28" Width="800" HorizontalContentAlignment="Center"/>
+            <Border Canvas.Left="365" Canvas.Top="106" BorderThickness="1" BorderBrush="Black">
+                <TextBox Name="Username" Width="317" Height="52" VerticalContentAlignment="Center" FontSize="27" Background="AliceBlue" TextChanged="OnLoginTextInfoChanged"/>
+            </Border>
+
+            <Label Canvas.Left="100" Canvas.Top="106" Content="Username:" FontSize="27" Height="70" Width="178" FontWeight="DemiBold"/>
+
+            <Border Canvas.Left="365" Canvas.Top="220" BorderThickness="1" BorderBrush="Black">
+                <PasswordBox Visibility="Visible" Name="Password" VerticalContentAlignment="Center" FontSize="27" Width="317" Height="49" Background="AliceBlue"
+                             PasswordChanged="OnLoginPasswordInfoChanged"/>
+            </Border>
+            <Label Visibility="Visible" Canvas.Left="100" Canvas.Top="220" Content="Password:" FontSize="27" Height="70" Width="177" FontWeight="DemiBold"/>
+
+            <Button Name="SignIn" Content="Login" FontSize="40" Canvas.Left="100" Canvas.Top="327" Height="65" Width="286"
+                    Background="Bisque" Click="SignIn_Click" IsEnabled="False">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Visibility="Visible" Name="GoToRegister" Click="GoToRegister_Click" Background="Transparent" BorderThickness="0, 0, 0, 3"
+                    BorderBrush="Black" 
+                Content="Don't have an account?" Foreground="Brown" FontSize="23" FontWeight="DemiBold" Canvas.Left="438" Canvas.Top="340"/>
+            <!-- Login Popup messages -->
+            <Label Visibility="Collapsed" Name="LoginFailedLabel" Content="Login Failed. Check Your Credentials!" 
+                   FontSize="30" Width="800" Canvas.Top="420"
+                   HorizontalContentAlignment="Center" Background="#FFEC5746" FontWeight="DemiBold"/>
+            <!-- Login Errors -->
+            <Label Content="Name Error" Canvas.Left="365" Canvas.Top="160" Width="319" FontSize="17" HorizontalContentAlignment="Center"
+                   FontWeight="DemiBold" Visibility="Collapsed" Name="LUsernameInvalid"
+                   Background="#FFD64B4B" Foreground="Black" Opacity="0.85"/>
+            <Label Content="Password Error" Canvas.Left="365" Canvas.Top="271" Width="319" FontSize="17" HorizontalContentAlignment="Center"
+                   Background="#FFD64B4B" Foreground="Black" Opacity="0.85"
+                   FontWeight="DemiBold" Visibility="Collapsed" Name="LPasswordInvalid"/>
+        </Canvas>
+
+        <!-- Register Form -->
+        <Canvas Name="RegisterForm" Visibility="Collapsed" Width="800" Height="420">
+            <Border Width="800" Height="420" Background="#FFD1A46C">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="75"></DropShadowEffect>
+                </Border.Effect>
+            </Border>
+            <Label Content="Register An Account" FontSize="27" FontWeight="Bold" Canvas.Top="28" Width="800" HorizontalContentAlignment="Center"/>
+            <Border Canvas.Left="357" Canvas.Top="105" BorderThickness="1" BorderBrush="Black">
+                <TextBox Name="UsernameR" Width="335" Height="53" VerticalContentAlignment="Center" FontSize="27" Background="AliceBlue" TextChanged="OnRegisterTextInfoChanged"/>
+            </Border>
+            <Label Canvas.Left="79" Canvas.Top="102" Content="Username:" FontSize="31" Height="70" Width="178" FontWeight="DemiBold"/>
+            <Border BorderBrush="Black" BorderThickness="1" Canvas.Left="357" Canvas.Top="211">
+                <PasswordBox Name="PasswordR" Width="335" Height="53" VerticalContentAlignment="Center" FontSize="27"
+                         Background="AliceBlue" PasswordChanged="OnRegisterPasswordInfoChanged"/>
+            </Border>
+            <Label Canvas.Left="79" Canvas.Top="210" Content="Password:" FontSize="31" Height="70" Width="177" FontWeight="DemiBold"/>
+
+            <Button Name="Register" Content="Register" FontSize="40" Canvas.Left="100" Canvas.Top="327" Height="65" Width="286"
+                    Background="Bisque" Click="Register_Click" IsEnabled="False">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Name="GoToLogin" Click="GoToLogin_Click" Background="Transparent" BorderThickness="0, 0, 0, 3" BorderBrush="Black"
+                Content="Already have an account?" Foreground="Brown" FontSize="21" FontWeight="DemiBold" Canvas.Left="454" Canvas.Top="338" Width="261"/>
+            <!-- Register Popup Messages -->
+            <Label Visibility="Collapsed" Name="RegisterSuccessfullLabel" Content="Registration Successfull!" FontSize="33" 
+                   Foreground="Black" Width="800" Canvas.Top="420" HorizontalContentAlignment="Center" FontWeight="DemiBold"
+                   Background="#FF24C724"/>
+
+            <Label Visibility="Collapsed" Name="RegisterFailedLabel" Content="Register Failed. Check Your Credentials!" 
+                   FontSize="30" Width="800" Canvas.Top="420"
+                   HorizontalContentAlignment="Center" Background="#FFEC5746" FontWeight="DemiBold"/>
+
+            <!-- Register Errors -->
+            <Label Content="Name Error" FontSize="17" FontWeight="DemiBold" Canvas.Left="357" Canvas.Top="160" Width="337"
+                   HorizontalContentAlignment="Center" Visibility="Collapsed" Name="RUsernameInvalid" Background="#FFD64B4B"
+                   Foreground="Black" Opacity="0.85"/>
+            <Label Content="Password Error" FontSize="17" FontWeight="DemiBold" Canvas.Left="357" Canvas.Top="266" Width="337"
+                   HorizontalContentAlignment="Center" Visibility="Collapsed" Name="RPasswordInvalid" Background="#FFD64B4B"
+                   Foreground="Black" Opacity="0.85"/>
+        </Canvas>
+
+    </Grid>
+</UserControl>
